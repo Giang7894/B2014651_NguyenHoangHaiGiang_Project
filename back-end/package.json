@@ -6,14 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nguyen Hoang Hai Giang",
+  "author": "Giang",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mongodb": "^6.4.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
+    "mongodb": "^6.5.0"
   }
 }
