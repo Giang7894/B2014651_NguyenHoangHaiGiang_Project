@@ -1,11 +1,9 @@
 const MongoDB=require("../urtils/mongodb.util");
 const ApiError=require("../api-error");
 const BookService=require("../services/book.service");
-const BookService = require("../services/book.service");
-const BookService = require("../services/book.service");
 
-exports.create=async (req,res,next)=>{
-    if(!req.body?.name || !req.body?.price || !req.body?.quantity){
+exports.create= async (req,res,next)=>{
+    if(!req.body?.name){
         return next(new ApiError(400,"Miss informations"));
     }
     try {
@@ -75,6 +73,7 @@ exports.findAll=async (req,res,next)=>{
     } catch (error) {
         return next(new ApiError(500,"Error"));
     }
+    return res.send(documents);
 };
 exports.findFavorite=async (req,res,next)=>{
     try {

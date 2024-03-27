@@ -1,8 +1,10 @@
 const express=require("express");
 const employee=require("../controllers/employee.controller");
 
-const router=express.Router();
+const EmployeeRouter=express.Router();
 
-router.route("/").get(employee.findAll).post(employee.create).delete(employee.delete);
+EmployeeRouter.route("/").get(employee.findAll).post(employee.create).delete(employee.delete);
 
-router.route("/:id").get(employee.findOne).put(employee.update).delete(employee.delete);
+EmployeeRouter.route("/:id").get(employee.findOne).put(employee.update).delete(employee.delete);
+
+module.exports=EmployeeRouter;

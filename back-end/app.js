@@ -12,14 +12,14 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/",(req,res)=>{
-    res.json({message:"Hello"});
-});
-
 app.use("/api/books",BookRouter);
 app.use("/api/employee",EmployeeRouter);
 app.use("/api/reader",ReaderRouter);
 app.use("/api/publisher",PublisherRouter);
+
+app.get("/",(req,res)=>{
+    res.json({message:"Hello"});
+});
 
 app.use((req,res,next)=>{
     return next(new ApiError(404,"Not found"));

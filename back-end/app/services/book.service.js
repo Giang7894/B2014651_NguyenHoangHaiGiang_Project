@@ -7,11 +7,10 @@ class BookService{
     extractBookData(payload){
         const book={
             name: payload.name,
-            price: payload.name,
-            quantity: payload.name,
+            price: payload.price,
+            quantity: payload.quantity,
             publisher: payload.publisher,
             publish_date: payload.publish_date,
-            favorite: payload.favorite,
         };
 
         Object.keys(book).forEach(
@@ -24,6 +23,7 @@ class BookService{
         const book=this.extractBookData(payload);
         const result=await this.Book.findOneAndUpdate(
             book,
+            {$set:{favorite:book.favorite=true}},
             {returnDocument: "after",upsert:true},
         );
         return result;

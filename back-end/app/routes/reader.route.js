@@ -1,8 +1,10 @@
 const express=require("express");
 const reader=require("../controllers/reader.controller");
 
-const router=express.Router();
+const ReaderRouter=express.ReaderRouter();
 
-router.route("/").get(reader.findAll).post(reader.create).delete(reader.delete);
+ReaderRouter.route("/").get(reader.findAll).post(reader.create).delete(reader.delete);
 
-router.route("/:id").get(reader.findOne).put(reader.update).delete(reader.delete);
+ReaderRouter.route("/:id").get(reader.findOne).put(reader.update).delete(reader.delete);
+
+module.exports=ReaderRouter;
