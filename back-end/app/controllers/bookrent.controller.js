@@ -1,14 +1,14 @@
 const MongoDB=require("../urtils/mongodb.util");
 const ApiError=require("../api-error");
-const PublisherService=require("../services/publisher.service");
+const BookRentService=require("../services/bookrent.service");
 
 exports.create= async (req,res,next)=>{
     if(!req.body?.name){
         return next(new ApiError(400,"Miss informations"));
     }
     try {
-        const publisherService=new PublisherService(MongoDB.client);
-        const document=await publisherService.create(req.body);
+        const bookRentService=new BookRentService(MongoDB.client);
+        const document=await bookRentService.create(req.body);
         return res.send(document);
     } catch (error) {
         return next(new ApiError(500,"Error"));
@@ -20,8 +20,8 @@ exports.update= async (req,res,next)=>{
         return next(new ApiError(400,"Data can not be empty"));
     }
     try {
-        const publisherService=new PublisherService(MongoDB.client);
-        const document=await publisherService.update(req.params.id,req.body);
+        const bookRentService=new BookRentService(MongoDB.client);
+        const document=await bookRentService.update(req.params.id,req.body);
         if(!document){
             return next(new ApiError(400,"not found"));
         }else{
@@ -34,8 +34,8 @@ exports.update= async (req,res,next)=>{
 
 exports.delete=async (req,res,next)=>{
     try {
-        const publisherService=new PublisherService(MongoDB.client);
-        const document=await publisherService.delete(req.params.id);
+        const bookRentService=new BookRentService(MongoDB.client);
+        const document=await bookRentService.delete(req.params.id);
         if(!document){
             return next(new ApiError(400,"Not found"));
         } else{
@@ -48,8 +48,8 @@ exports.delete=async (req,res,next)=>{
 
 exports.findOne=async (req,res,next)=>{
     try {
-        const publisherService=new PublisherService(MongoDB.client);
-        const document=await publisherService.findById(req.params.id);
+        const bookRentService=new BookRentService(MongoDB.client);
+        const document=await bookRentService.findById(req.params.id);
         if(!document){
             return next(new ApiError(400,"Not found"));
         }
@@ -63,13 +63,8 @@ exports.findAll=async (req,res,next)=>{
     let documents=[];
 
     try {
-        const publisherService=new PublisherService(MongoDB.client);
-        const {name}=req.query;
-        if(name){
-            documents=await publisherService.findByName(name);
-        } else{
-            documents=await publisherService.find({});
-        }
+        const bookRentService=new BookRentService(MongoDB.client);
+        documents = await bookRentService.findByReaderId(req.params.readerId);
     } catch (error) {
         return next(new ApiError(500,"Error"));
     }
@@ -77,3 +72,14 @@ exports.findAll=async (req,res,next)=>{
 };
 
 
+exports.deleteAll=async(req,res,next)=>{
+    try {
+        const bookRentService=new BookRentService(MongoDB.client);
+        const document=await bookRentService.deleteAll();
+        return res.send({
+            message: "delete all",
+        });
+    } catch (error) {
+        return next(new ApiError(500,"error"));
+    }
+}

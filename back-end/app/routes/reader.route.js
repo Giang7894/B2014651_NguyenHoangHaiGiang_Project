@@ -1,7 +1,7 @@
 const express=require("express");
 const reader=require("../controllers/reader.controller");
 
-const ReaderRouter=express.ReaderRouter();
+const ReaderRouter=express.Router();
 
 ReaderRouter.route("/").get(reader.findAll).post(reader.create).delete(reader.delete);
 

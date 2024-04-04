@@ -1,6 +1,6 @@
 const MongoDB=require("../urtils/mongodb.util");
 const ApiError=require("../api-error");
-const ReaderService=require("../services/employee.service");
+const ReaderService=require("../services/reader.service");
 
 exports.create= async (req,res,next)=>{
     if(!req.body?.name){
@@ -11,7 +11,7 @@ exports.create= async (req,res,next)=>{
         const document=await readerService.create(req.body);
         return res.send(document);
     } catch (error) {
-        return next(new ApiError(500,"Error"));
+        return next(new ApiError(500,error));
     }
 };
 

@@ -13,7 +13,7 @@ class PublisherService{
         Object.keys(publisher).forEach(
             (key)=>publisher[key]===undefined && delete publisher[key]
         );
-        return book;
+        return publisher;
     }
 
     async create(payload){

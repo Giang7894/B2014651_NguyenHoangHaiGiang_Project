@@ -16,7 +16,7 @@ class EmployeeService{
         Object.keys(employee).forEach(
             (key)=>employee[key]===undefined && delete employee[key]
         );
-        return book;
+        return employee;
     }
 
     async create(payload){

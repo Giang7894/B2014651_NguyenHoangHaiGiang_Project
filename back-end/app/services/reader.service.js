@@ -8,12 +8,15 @@ class ReaderService{
         const reader={
             name: payload.name,
             address:payload.address,
+            sex: payload.sex,
+            birth: payload.birth,
+            phone: payload.phone,
         };
 
         Object.keys(reader).forEach(
             (key)=>reader[key]===undefined && delete reader[key]
         );
-        return book;
+        return reader;
     }
 
     async create(payload){

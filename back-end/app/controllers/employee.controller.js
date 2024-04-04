@@ -11,7 +11,7 @@ exports.create= async (req,res,next)=>{
         const document=await employeeSerivce.create(req.body);
         return res.send(document);
     } catch (error) {
-        return next(new ApiError(500,"Error"));
+        return next(new ApiError(500,error));
     }
 };
 
