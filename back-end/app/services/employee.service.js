@@ -1,13 +1,18 @@
-const { ObjectId}= require("mongodb");
+const { ObjectId } = require("mongodb");
+var generator = require('generate-password');
 
 class EmployeeService{
     constructor(client){
         this.Employee=client.db().collection("employees");
     }
-    extractEmployeeData(payload){
+    extractEmployeeData(payload) {
+        var password = generator.generate({
+	length: 5,
+	numbers: true
+        });
         const employee={
             name: payload.name,
-            password: payload.password,
+            password: payload.password==null ? password : payload.password,
             role: payload.role,
             address: payload.address,
             phone: payload.phone,
@@ -19,10 +24,11 @@ class EmployeeService{
         return employee;
     }
 
-    async create(payload){
-        const employee=this.extractEmployeeData(payload);
-        const result=await this.Employee.insertOne(
+    async create(payload) {
+        const employee = this.extractEmployeeData(payload);
+        const result = await this.Employee.insertOne(
             employee
+            
         );
         return result;
     }
@@ -57,7 +63,7 @@ class EmployeeService{
 
     async delete(id){
         const result=await this.Employee.findOneAndDelete({
-            _id: ObjectId(id).isValid() ? new ObjectId(id): null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id): null,
         });
         return result;
     }

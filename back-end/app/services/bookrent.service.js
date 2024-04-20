@@ -10,6 +10,7 @@ class BookRentService{
             readerId: payload.readerId,
             rentDate: payload.rentDate,
             returnDate: payload.returnDate,
+            status: payload.status,
         };
 
         Object.keys(bookrent).forEach(
@@ -56,7 +57,7 @@ class BookRentService{
 
     async delete(id){
         const result=await this.BookRent.findOneAndDelete({
-            _id: ObjectId(id).isValid() ? new ObjectId(id): null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id): null,
         });
         return result;
     }

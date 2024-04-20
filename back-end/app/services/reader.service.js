@@ -57,7 +57,7 @@ class ReaderService{
 
     async delete(id){
         const result=await this.Reader.findOneAndDelete({
-            _id: ObjectId(id).isValid() ? new ObjectId(id): null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id): null,
         });
         return result;
     }

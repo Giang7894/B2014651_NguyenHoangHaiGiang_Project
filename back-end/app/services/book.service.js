@@ -11,6 +11,8 @@ class BookService{
             quantity: payload.quantity,
             publisher: payload.publisher,
             publish_date: payload.publish_date,
+            image: payload.image,
+            author: payload.author,
         };
 
         Object.keys(book).forEach(
@@ -59,7 +61,7 @@ class BookService{
 
     async delete(id){
         const result=await this.Book.findOneAndDelete({
-            _id: ObjectId(id).isValid() ? new ObjectId(id): null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
         return result;
     }

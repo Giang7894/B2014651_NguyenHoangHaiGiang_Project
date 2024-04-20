@@ -35,13 +35,13 @@ class PublisherService{
     }
     async findById(id){
         return await this.Publisher.findOne({
-            _id: ObjectId.isValid(id) ? new ObjectId(id):null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
     }
 
     async update(id,payload){
         const filter={
-            _id: ObjectId.isValid(id) ? new ObjectId(id):null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         };
         const update=this.extractPublisherData(payload);
         const result=this.Publisher.findOneAndUpdate(
@@ -54,7 +54,7 @@ class PublisherService{
 
     async delete(id){
         const result=await this.Publisher.findOneAndDelete({
-            _id: ObjectId(id).isValid() ? new ObjectId(id): null,
+            _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
         return result;
     }

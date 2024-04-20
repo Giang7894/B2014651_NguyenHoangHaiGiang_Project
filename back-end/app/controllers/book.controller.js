@@ -42,7 +42,7 @@ exports.delete=async (req,res,next)=>{
             return res.send("Delete succedd");
         }
     } catch (error) {
-        return next(new ApiError(500,"error"));
+        return next(new ApiError(500,`Could not delete book with id=${req.params.id}`));
     }
 };
 
