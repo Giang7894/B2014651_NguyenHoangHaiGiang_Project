@@ -20,13 +20,12 @@
             </div>
         </div>
         <div class="form-group my-3">
-            <label for="author">Role</label>
-            <Field v-model="emLocal.role" type="text" class="form-control my-3" id="role" name="role" placeholder=""
-                required>
-            </Field>
-            <div class="invalid-feedback">
-                Please enter a directory.
-            </div>
+            <label for="role">Role</label>
+            <select v-model="emLocal.role" name="role" class="mb-3" >
+                <option disabled value="" >Please select a role</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Employee</option>
+            </select>
         </div>
         <div class="form-group my-3">
             <label for="author">Phone</label>

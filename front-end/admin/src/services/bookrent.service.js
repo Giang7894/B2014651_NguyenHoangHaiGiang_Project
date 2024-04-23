@@ -29,6 +29,21 @@ class BookRentService{
     async delete(id) {
         return (await this.api.delete(`${id}`)).data;
     }
+    async borrowBook(id,data) {
+        return (await this.api.put(`/action/${id}`,data)).data;
+    }
+
+    async returnBook(id,data) {
+        return (await this.api.patch(`/action/${id}`,data)).data;
+    }
+
+    async approve(id) {
+        return (await this.api.put(`/detail/${id}`)).data;
+    }
+
+    async cancel(id) {
+        return (await this.api.delete(`/detail/${id}`)).data;
+    }
 }
 
 export default new BookRentService();

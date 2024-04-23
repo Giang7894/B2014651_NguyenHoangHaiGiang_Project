@@ -11,6 +11,8 @@ class ReaderService{
             sex: payload.sex,
             birth: payload.birth,
             phone: payload.phone,
+            email: payload.email,
+            password: '123456',
         };
 
         Object.keys(reader).forEach(
@@ -60,6 +62,25 @@ class ReaderService{
             _id: ObjectId.isValid(id) ? new ObjectId(id): null,
         });
         return result;
+    }
+
+    async login(payload) {
+        const result = this.Reader.findOne({
+            email: payload.email,password: payload.password
+        });
+        return result;
+    }
+
+    async register(payload) {
+        return reusult =await this.Reader.insertOne({
+            name: payload.name,
+            address: payload.address,
+            sex: payload.sex,
+            birth: payload.birth,
+            phone: payload.phone,
+            email: payload.email,
+            password: payload.password,
+        });
     }
 }
 

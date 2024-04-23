@@ -24,7 +24,7 @@ export default {
         },
         filteredReaders() {
             if (!this.searchText) return this.readers;
-            return this.readers.filter((_reader, index) => this.readersStrings[index].includes(this.searchText));
+            return this.readers.filter((_reader, index) => this.readersStrings[index].toLowerCase().includes(this.searchText.toLowerCase()));
         },
         filteredReadersCount() {
             return this.filteredReaders.length;
@@ -55,6 +55,11 @@ export default {
 </script>
 
 <template>
+    <form action="#" class="searchform order-sm-start order-lg-last">
+        <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" v-model="this.searchText">
+        </div>
+    </form>
     <h1 class="text-center">READER</h1>
     <a type="button" class="btn btn-primary mb-5" @click="gotoAddReader">Add new reader</a>
     <ReaderList v-if="filteredReadersCount > 0" :readers="filteredReaders" />

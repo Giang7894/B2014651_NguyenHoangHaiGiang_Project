@@ -24,7 +24,7 @@ export default {
         },
         filteredEmployees() {
             if (!this.searchText) return this.employees;
-            return this.employees.filter((_employee, index) => this.employeeStrings[index].includes(this.searchText));
+            return this.employees.filter((_employee, index) => this.emStrings[index].toLowerCase().includes(this.searchText.toLowerCase()));
         },
         filteredEmployeesCount() {
             return this.filteredEmployees.length;
@@ -55,8 +55,13 @@ export default {
 </script>
 
 <template>
+    <form action="#" class="searchform order-sm-start order-lg-last">
+        <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" v-model="this.searchText">
+        </div>
+    </form>
     <h1 class="text-center">EMPLOYEE</h1>
-    <a type="button" class="btn btn-primary mb-5" @click="gotoAddEmployee">Add new book</a>
+    <a type="button" class="btn btn-primary mb-5" @click="gotoAddEmployee">Add new employee</a>
     <EmployeeList v-if="filteredEmployeesCount > 0" :employees="filteredEmployees" />
     <p v-else>No employee what so ever</p>
 </template>

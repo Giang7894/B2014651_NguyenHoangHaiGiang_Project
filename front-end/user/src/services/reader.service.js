@@ -12,7 +12,14 @@ class ReaderService{
         return (await this.api.get(`/${id}`)).data;
     }
     async update(id, data) {
-        return (await this.api.put(`${id}`, data)).data;
+        return (await this.api.put(`/${id}`, data)).data;
+    }
+    async login(data) {
+        return (await this.api.post('/login', data)).data;
+    }
+
+    async register(data) {
+        return (await this.api.post('/register',data)).data;
     }
 }
 

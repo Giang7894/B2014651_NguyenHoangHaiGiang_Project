@@ -1,10 +1,11 @@
 <template>
-<BookForm :book="book" @submit:book="updateBook" @delete:book="deleteBook"/>
+<BookForm :book="book" @submit:book="updateBook" @delete:book="deleteBook" :pubs="this.pubs"/>
 </template>
 
 <script>
 import BookForm from "@/components/book/BookForm.vue";
 import bookService from "@/services/book.service";
+import publisherService from "@/services/publisher.service";
 
 export default {
     components: {
@@ -17,6 +18,7 @@ export default {
         return {
             book: null,
             message: "",
+            pubs:[],
         }
     },
     methods: {
@@ -41,11 +43,21 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+                async retrievePub() {
+            try {
+               this.pubs= await publisherService.getAll();
+            } catch (error) {
+                console.log(error);
+            }
         }
     },
     created() {
         this.getBook(this.id);
         this.message = "";
+    },
+        mounted() {
+        this.retrievePub();
     }
 }
 </script>

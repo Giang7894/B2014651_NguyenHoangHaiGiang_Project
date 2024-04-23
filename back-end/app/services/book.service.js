@@ -25,7 +25,7 @@ class BookService{
         const book=this.extractBookData(payload);
         const result=await this.Book.findOneAndUpdate(
             book,
-            {$set:{favorite:book.favorite=true}},
+            {$set:{favorite:book.favorite=true,instore:book.instore=book.quantity}},
             {returnDocument: "after",upsert:true},
         );
         return result;
@@ -74,6 +74,24 @@ class BookService{
 
     async deleteAll(){
         return await this.Book.deleteMany({});
+    }
+
+    async borrowBook(id) {
+        const result=await this.Book.updateOne(
+            {_id: ObjectId.isValid(id) ? new ObjectId(id) : null,},
+            {$inc:{instore: -1}},
+            {returnDocument: "after",upsert:true},
+        );
+        return result;
+    }
+
+    async returnBook(id) {
+        const result=await this.Book.updateOne(
+            {_id: ObjectId.isValid(id) ? new ObjectId(id) : null,},
+            {$inc:{instore: 1}},
+            {returnDocument: "after",upsert:true},
+        );
+        return result;
     }
 }
 

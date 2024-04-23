@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '@/views/Home.vue';
-
 const routes = [
     {
         path: "/",
@@ -82,9 +81,28 @@ const routes = [
         name: "reader.add",
         component: () => import("@/views/ReaderAdd.vue"),
     },
+    {
+        path: '/login',
+        name: "login",
+        component: () => import("@/components/LoginForm.vue"),
+    }
 ];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
 });
+
+router.beforeEach((to) => {
+    if (to.name != 'login' && localStorage.getItem('admin') == null) {
+        return { name: 'login' };
+    }
+    if (localStorage.getItem('admin') != null && to.name == 'login') {
+        return { name: 'home' };
+    }
+    if (localStorage.getItem('admin') != null) {
+        if (JSON.parse(localStorage.getItem('admin')).role == 'employee' && (to.name!='reader' && to.name!='home' && to.name!='reader.add' && to.name!='reader.edit' && to.name!='bookrent')) {
+            return { name: 'home' };
+        }
+    }
+})
 export default router;

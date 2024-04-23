@@ -85,14 +85,42 @@ exports.findFavorite=async (req,res,next)=>{
     }
 };
 
-exports.deleteAll=async(req,res,next)=>{
+exports.deleteAll = async (req, res, next) => {
     try {
-        const bookService=new BookService(MongoDB.client);
-        const document=await bookService.deleteAll();
+        const bookService = new BookService(MongoDB.client);
+        const document = await bookService.deleteAll();
         return res.send({
             message: "delete all",
         });
     } catch (error) {
-        return next(new ApiError(500,"error"));
+        return next(new ApiError(500, "error"));
     }
-}
+};
+
+exports.borrowBook= async (req,res,next)=>{
+    try {
+        const bookService=new BookService(MongoDB.client);
+        const document=await bookService.borrowBook(req.params.id);
+        if(!document){
+            return next(new ApiError(400,"not found"));
+        }else{
+            return res.send("Update succeed");
+        }
+    } catch (error) {
+        return next(new ApiError(500,"Error"));
+    }
+};
+
+exports.returnBook= async (req,res,next)=>{
+    try {
+        const bookService=new BookService(MongoDB.client);
+        const document=await bookService.returnBook(req.params.id);
+        if(!document){
+            return next(new ApiError(400,"not found"));
+        }else{
+            return res.send("Update succeed");
+        }
+    } catch (error) {
+        return next(new ApiError(500,"Error"));
+    }
+};

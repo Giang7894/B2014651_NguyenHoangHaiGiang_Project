@@ -21,6 +21,7 @@ export default {
                 phone: "",
                 sex: "",
                 birth: "",
+                email:"",
             },
             message: "",
         };

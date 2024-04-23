@@ -36,7 +36,7 @@ export default {
                 <td>{{ book.author }}</td>
                 <td>{{ book.price }}</td>
                 <td>{{ book.quantity }}</td>
-                <td>{{ book.rented }}</td>
+                <td>{{ book.quantity-book.instore }}</td>
                 <td>{{ book.instore }}</td>
 
                 <td><router-link :to="{name:'book.edit', params: {id: book._id}}"><a type="button"

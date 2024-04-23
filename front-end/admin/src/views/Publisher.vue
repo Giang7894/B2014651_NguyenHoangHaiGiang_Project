@@ -24,7 +24,7 @@ export default {
         },
         filteredPubs() {
             if (!this.searchText) return this.pubs;
-            return this.pubs.filter((_pub, index) => this.pubsStrings[index].includes(this.searchText));
+            return this.pubs.filter((_pub, index) => this.pubsStrings[index].toLowerCase().includes(this.searchText.toLowerCase()));
         },
         filteredPubsCount() {
             return this.filteredPubs.length;
@@ -55,6 +55,11 @@ export default {
 </script>
 
 <template>
+    <form action="#" class="searchform order-sm-start order-lg-last">
+        <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" v-model="this.searchText">
+        </div>
+    </form>
     <h1 class="text-center">PUBLISHER</h1>
     <a type="button" class="btn btn-primary mb-5" @click="gotoAddPub">Add new publisher</a>
     <PublisherList v-if="filteredPubsCount > 0" :pubs="filteredPubs" />

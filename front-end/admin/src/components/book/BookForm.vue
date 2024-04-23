@@ -28,7 +28,7 @@
         </div>
         <div class="form-group my-3">
             <label for="price">Price</label>
-            <Field v-model="bookLocal.price" type="text" class="form-control my-3" id="price" name="price"
+            <Field v-model="bookLocal.price" type="number" class="form-control my-3" id="price" name="price"
                 placeholder="" required>
             </Field>
             <div class="invalid-feedback">
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group my-3">
             <label for="total">Total</label>
-            <Field v-model="bookLocal.quantity" type="text" class="form-control my-3" id="total" name="total"
+            <Field v-model="bookLocal.quantity" type="number" class="form-control my-3" id="total" name="total"
                 placeholder="" required></Field>
             <div class="invalid-feedback">
                 Enter a number.

@@ -77,3 +77,15 @@ exports.findAll=async (req,res,next)=>{
 };
 
 
+exports.login = async (req, res, next) => {
+    try {
+        const readerService=new EmployeeService(MongoDB.client);
+        const document=await readerService.login(req.body);
+        if(!document){
+            return next(new ApiError(400,"Not found"));
+        }
+        return res.send(document);
+    } catch (error) {
+        return next(new ApiError(500,error));
+    }
+}

@@ -3,6 +3,7 @@ import BookRentList from "@/components/bookrent/BookRentList.vue"
 import BookRentService from "@/services/bookrent.service";
 import employeeService from "@/services/employee.service";
 import readerService from "@/services/reader.service";
+import bookService from "@/services/book.service";
 
 export default {
     components: {
@@ -13,7 +14,7 @@ export default {
             bookrents:[],
             books: [],
             readers: [],
-            employee:[],
+            employees:[],
             searchText: '',
         };
     },
@@ -47,9 +48,10 @@ export default {
     methods: {
         async retrieveBooks() {
             try {
-                this.books = await BookService.getAll();
+                this.books = await bookService.getAll();
                 this.readers = await readerService.getAll();
-                this.employee = await employeeService.getAll();
+                this.employees = await employeeService.getAll();
+                this.bookrents = await BookRentService.getAll();
             } catch (error) {
                 console.log(error);
             }

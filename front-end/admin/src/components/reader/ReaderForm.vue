@@ -30,18 +30,26 @@
         </div>
         <div class="form-group my-3">
             <label for="img">Phone</label>
-            <Field v-model="readerLocal.phone" type="text" class="form-control my-3" id="phone" name="phone" placeholder=""
-                required></Field>
+            <Field v-model="readerLocal.phone" type="text" class="form-control my-3" id="phone" name="phone"
+                placeholder="" required></Field>
             <div class="invalid-feedback">
                 Please enter a phone.
             </div>
         </div>
         <div class="form-group my-3">
             <label for="total">Sex</label>
-            <Field v-model="readerLocal.sex" type="text" class="form-control my-3" id="sex" name="sex"
-                placeholder="" required></Field>
+            <Field v-model="readerLocal.sex" type="text" class="form-control my-3" id="sex" name="sex" placeholder=""
+                required></Field>
             <div class="invalid-feedback">
                 Enter a gender.
+            </div>
+        </div>
+        <div class="form-group my-3">
+            <label for="total">Email</label>
+            <Field v-model="readerLocal.email" type="email" class="form-control my-3" id="email" name="email" placeholder=""
+                required></Field>
+            <div class="invalid-feedback">
+                Enter a email.
             </div>
         </div>
         <div class="form-group">

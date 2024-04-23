@@ -7,6 +7,8 @@ BookRouter.route("/").get(book.findAll).post(book.create).delete(book.deleteAll)
 
 BookRouter.route("/favorite").get(book.findFavorite);
 
-BookRouter.route("/:id").get(book.findOne).put(book.update).delete(book.delete);
+BookRouter.route("/:id").get(book.findOne).put(book.update).delete(book.delete).patch(book.borrowBook).post(book.returnBook);
+
+
 
 module.exports=BookRouter;

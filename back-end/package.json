@@ -17,7 +17,8 @@
     "mongodb": "^6.5.0",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-google-oidc": "^0.1.0"
+    "passport-google-oidc": "^0.1.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/devtools": "^7.0.27"

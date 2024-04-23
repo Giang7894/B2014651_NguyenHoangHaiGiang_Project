@@ -8,9 +8,8 @@ class BookRentService{
         const bookrent={
             bookId: payload.bookId,
             readerId: payload.readerId,
-            rentDate: payload.rentDate,
-            returnDate: payload.returnDate,
-            status: payload.status,
+            status: 0,
+            reqDate: payload.reqDate,
         };
 
         Object.keys(bookrent).forEach(
@@ -20,9 +19,13 @@ class BookRentService{
     }
 
     async create(payload){
-        const bookrent=this.extractBookRentData(payload);
         const result=await this.BookRent.insertOne(
-            bookrent
+            {
+                bookId: payload.bookId,
+                readerId: payload.readerId,
+                status: 0,
+                reqDate: new Date(),
+            }
         );
         return result;
     }
@@ -76,6 +79,45 @@ class BookRentService{
         return await this.find({
             bookId: id,
         })
+    }
+
+    async findRent(data) {
+        return await this.BookRent.findOne({
+            readerId: data.readerId,
+            bookId: data.bookId,
+        })
+    }
+
+    async approve(id) {
+        const date = Date.now();
+        return await this.BookRent.updateOne(
+            { _id: ObjectId.isValid(id) ? new ObjectId(id) : null, },
+            { $inc: { status: 1 } },
+            {$set: {rentedDate: date}},
+            { returnDocument: "after", upsert: true },
+        );
+    }
+
+    async cancel(id) {
+        return await this.BookRent.updateOne(
+            { _id: ObjectId.isValid(id) ? new ObjectId(id) : null, },
+            { $inc: { status: -1 } },
+            { returnDocument: "after", upsert: true },
+        );        
+    }
+
+    async borrowBook(id,data) {
+        return await this.BookRent.updateOne(
+            { _id: ObjectId.isValid(id) ? new ObjectId(id) : null },
+            { $set: { rentDate: new Date(),employee1: data.id } },
+            { returnDocument: "after", upsert: true },);
+    }
+
+    async returnBook(id,data) {
+        return await this.BookRent.updateOne(
+            { _id: ObjectId.isValid(id) ? new ObjectId(id) : null },
+            { $set: { returnDate: new Date(),employee2: data.id } },
+            { returnDocument: "after", upsert: true },);
     }
 }
 

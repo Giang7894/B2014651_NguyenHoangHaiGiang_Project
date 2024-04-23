@@ -1,15 +1,15 @@
 <script>
 export default {
-    props: {
-      modelValue: {type: String,default: ''},  
+    data() {
+        return {
+            user: JSON.parse(localStorage.getItem('admin')),
+            role: localStorage.getItem('admin') == null ? 'employee' : JSON.parse(localStorage.getItem('admin')).role, 
+        };
     },
-    emits: ['submit', 'update:modelValue'],
     methods: {
-        updateModelValue(e) {
-            this.$emit('update:modelValue', e.target.value);
-        },
-        submit() {
-            this.$emit("submit");
+        logout() {
+            localStorage.removeItem('admin');
+            this.$router.push({ name: 'login' });            
         }
     }
 }
@@ -23,12 +23,12 @@ export default {
                     aria-expanded="true">
                     <i class="fa fa-home me-3" aria-hidden="true"></i><span>Home</span>
                 </a>
-                <a id="b" class="list-group-item list-group-item-action py-5 ripple" aria-current="true" href="/book"
-                    aria-expanded="true">
+                <a id="b" v-if="this.role == 'manager'" class="list-group-item list-group-item-action py-5 ripple"
+                    aria-current="true" href="/book" aria-expanded="true">
                     <i class="fa fa-list-alt me-3" aria-hidden="true"></i><span>Book</span>
                 </a>
-                <a id="b" class="list-group-item list-group-item-action py-5 ripple" aria-current="true" href="/publisher"
-                    aria-expanded="true">
+                <a id="c" v-if="this.role == 'manager'" class="list-group-item list-group-item-action py-5 ripple"
+                    aria-current="true" href="/publisher" aria-expanded="true">
                     <i class="fa fa-list-alt me-3" aria-hidden="true"></i><span>Publisher</span>
                 </a>
 
@@ -37,8 +37,8 @@ export default {
                     <i class="fa-solid fa-book me-3"></i><span>Reader</span>
                 </a>
 
-                <a class="list-group-item list-group-item-action py-5 ripple" aria-current="true" href="/employee"
-                    aria-expanded="true">
+                <a v-if="this.role == 'manager'" class="list-group-item list-group-item-action py-5 ripple"
+                    aria-current="true" href="/employee" aria-expanded="true">
                     <i class="fa-solid fa-user me-3"></i><span>Employee</span>
                 </a>
 
@@ -72,16 +72,7 @@ export default {
             </a>
             <ul class="navbar-nav ms-auto d-flex flex-row">
 
-                <li class="nav-item dropdown" id="av">
-                    <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center text-white" href="#"
-                        id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://img.freepik.com/premium-vector/male-avatar-icon-unknown-anonymous-person-default-avatar-profile-icon-social-media-user-business-man-man-profile-silhouette-isolated-white-background-vector-illustration_735449-122.jpg"
-                            class="rounded-circle me-2" height="22" alt="Avatar" loading="lazy" />admin01
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end ms-2" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>
-                    </ul>
-                </li>
+                <li @click="logout"><a type="button" class="text-white">Log out</a></li>
             </ul>
         </div>
 
