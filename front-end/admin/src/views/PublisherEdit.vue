@@ -1,4 +1,5 @@
 <template>
+    <h1>Edit publisher</h1>
     <PubForm :pub="pub" @submit:pub="updatePub" @delete:pub="deletePub" />
 </template>
 

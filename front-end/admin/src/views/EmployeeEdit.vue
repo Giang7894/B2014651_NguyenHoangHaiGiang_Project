@@ -1,4 +1,5 @@
 <template>
+    <h1>Edit employee</h1>
     <EmployeeForm :employee="employee" @submit:employee="updateEmployee" @delete:employee="deleteEmployee" />
 </template>
 

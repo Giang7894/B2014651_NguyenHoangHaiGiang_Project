@@ -1,4 +1,5 @@
 <template>
+    <h1>Edit reader</h1>
     <ReaderForm :reader="reader" @submit:reader="updateReader" @delete:reader="deleteReader" />
 </template>
 

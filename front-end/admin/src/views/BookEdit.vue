@@ -1,4 +1,5 @@
 <template>
+    <h1>Edit book</h1>
 <BookForm :book="book" @submit:book="updateBook" @delete:book="deleteBook" :pubs="this.pubs"/>
 </template>
 
